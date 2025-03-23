@@ -1,0 +1,50 @@
+$schema: "http://json-schema.org/draft-06/schema#"
+
+description: snakemake configuration file
+
+type: object
+
+properties:
+  samples:
+    type: string
+
+  ref:
+    type: object
+    properties:
+      genome:
+        type: string
+      annotation:
+        type: string
+    required:
+      - genome
+      - annotation
+
+  SRA:
+    type: object
+    properties:
+      acc_list:
+        type: string
+      output_dir:
+        type: string
+      activate:
+        type: boolean
+    required:
+      - activate
+
+  featureCounts:
+    type: object
+    properties:
+      attribute_type:
+        type: string
+      feature_type:
+        type: string
+    required:
+      - attribute_type
+      - feature_type
+
+
+required:
+  - samples
+  - ref
+  - SRA
+  - featureCounts

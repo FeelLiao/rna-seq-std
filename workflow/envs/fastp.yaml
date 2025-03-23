@@ -1,0 +1,13 @@
+channels:
+- bioconda
+- conda-forge
+dependencies:
+- _libgcc_mutex=0.1=conda_forge
+- _openmp_mutex=4.5=2_gnu
+- fastp=0.24.0=heae3180_1
+- isa-l=2.31.1=hb9d3cd8_1
+- libdeflate=1.23=h4ddbbb0_0
+- libgcc=14.2.0=h767d61c_2
+- libgomp=14.2.0=h767d61c_2
+- libstdcxx=14.2.0=h8f9b012_2
+

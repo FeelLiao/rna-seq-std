@@ -1,0 +1,23 @@
+# path  to sample sheet (CSV format, columns: sample, group, ...)
+samples: config/sample_sheet.csv
+
+ref:
+  # Define the reference genome to use (must in fasta format, gz compression is not supported). 
+  genome: ref/genome.fasta
+  # Which genome annotation to use.
+  annotation: ref/annotation.gtf
+
+SRA:
+  activate: false
+  # If you run SRA by targeting sra in snakemake, you will have to
+  # provide the path of SRA accession files (usually named SRR_Acc_List.txt)
+  # and fulfill the needed information in the sample_sheet.csv file.
+
+  # path to SRA accession list
+  acc_list: config/SRR_Acc_List.txt
+  output_dir: SRA/
+
+featureCounts:
+  # Define the featureCounts parameters
+  attribute_type: gene_id
+  feature_type: exon

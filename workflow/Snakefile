@@ -1,0 +1,33 @@
+from snakemake.utils import min_version
+
+##### set minimum snakemake version #####
+# This workflow is tested with snakemake version 8.28.0
+
+min_version("8.28.0")
+
+##### setup report #####
+configfile: "config/config.yaml"
+
+report: "report/workflow.rst"
+
+
+##### load rules #####
+
+
+include: "rules/common.smk"
+include: "rules/ref.smk"
+include: "rules/seq.smk"
+include: "rules/counts.smk"
+include: "rules/align.smk"
+
+
+##### target rules #####
+
+
+rule all:
+    input:
+        get_final_output(),
+
+rule sra:
+    input:
+        directory(config["SRA"]["output_dir"])
