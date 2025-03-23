@@ -13,8 +13,8 @@ The workflow is divided into 3 sections:
   - [x] `fastp` for raw reads quality control.
   - [x] `hisat2` for genome index and clean reads alignment.
   - [x] `featureCounts` for transcript quantification.
-- [ ]RNA-Seq downstream analysis. 
-  - [ ]`edgeR` for different expressed gene analysis.
+- [ ] RNA-Seq downstream analysis. 
+  - [ ] `edgeR` for different expressed gene analysis.
 
 ⚠️Notes: This workflow is still under development. If you have any problem, please submit a issue. 
 
@@ -34,13 +34,7 @@ git clone
 snakemake -c 20 --use-conda
 ```
 
-- -c: threads this workflow will use.
-
-for sra target, please run:
-
-```bash
-snakemake sra -c 20 --use-conda
-```
+  - -c: threads this workflow will use.
 
 4. Result: results is in `out` directory.
 

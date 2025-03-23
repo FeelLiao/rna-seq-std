@@ -32,13 +32,7 @@ git clone
 snakemake -c 20 --use-conda 
 ``` 
 
-如果使用 sra 目标，请运行以下代码
-
-```bash
-snakemake sra -c 20 --use-conda
-```
-
-- -c：该工作流将使用的线程数。 
+  - -c：该工作流将使用的线程数。 
 
 4. 结果：分析结果将存储在 `out` 目录中。 
  
