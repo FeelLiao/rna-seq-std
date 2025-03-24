@@ -38,7 +38,7 @@ snakemake -c 20 --use-conda
  
 ## 特性
 
-- [ ] snakemake 报告 
+- ❌ snakemake 报告 
 - [ ] Rmarkdown 报告 
  
 ## 参考资料 

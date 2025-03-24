@@ -40,7 +40,7 @@ snakemake -c 20 --use-conda
 
 ## Features
 
-- [ ] snakemake reports.
+- ❌ snakemake reports.
 - [ ] Rmarkdown reports.
 
 ## Reference
