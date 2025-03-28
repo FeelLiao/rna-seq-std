@@ -5,16 +5,15 @@ rule hisat2_index:
         directory("out/hisat2_index"),
     params:
         extra="--seed 42",
+    priority: 50,
     conda:
         "../envs/hisat2.yaml",
     log:
         "out/logs/hisat2_index.log",
-    threads: 5
+    threads: 10
     script:
         "../scripts/hisat2_index.py"
 
-#TODO: redirect log to logs/{accession}.log
-# try to define log path in params. 
 rule download_sra:
     input:
         config["SRA"]["acc_list"]

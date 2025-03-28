@@ -2,3 +2,5 @@ out/
 test/rawdata
 test/ref
 test/SRA
+test/LT
+.snakemake/

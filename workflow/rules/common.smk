@@ -41,14 +41,11 @@ def get_final_output():
 
 
 def get_fq(wildcards):
-  if not config["SRA"]["activate"]:
-    file = samples["read1"].iloc[0]
-    file_path = Path(file).parent
-    fq1 = "{}/{}_R1.fastq".format(file_path,wildcards.sample)
-    fq2 = "{}/{}_R2.fastq".format(file_path,wildcards.sample)
-  else:
-    file = samples["read1"].iloc[0]
-    file_path = Path(file).parent
-    fq1 = "{}/{}_1.fastq".format(file_path,wildcards.sample)
-    fq2 = "{}/{}_2.fastq".format(file_path,wildcards.sample)
+  file1 = samples["read1"].iloc[0]
+  file2 = samples["read2"].iloc[0]
+  file_path = Path(file1).parent
+  end1 = file1.split("_")[-1]
+  end2 = file2.split("_")[-1]
+  fq1 = "{}/{}_{}".format(file_path,wildcards.sample,end1)
+  fq2 = "{}/{}_{}".format(file_path,wildcards.sample,end2)
   return fq1, fq2

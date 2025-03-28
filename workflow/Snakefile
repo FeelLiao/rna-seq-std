@@ -8,8 +8,6 @@ min_version("8.28.0")
 ##### setup report #####
 configfile: "config/config.yaml"
 
-report: "report/workflow.rst"
-
 
 ##### load rules #####
 

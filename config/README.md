@@ -45,7 +45,7 @@ The reference genome and genome annotation used for RNA-Seq
 
 ## genome
 
-Define the reference genome to use. file must be in fasta format. gz compression is not supported due to the limitation of `hisat2`.
+Define the reference genome to use. file can be `fasta` and `gz` format.
 
 You could download this via NCBI or EMBL database.
 

@@ -29,7 +29,7 @@ if __name__ == "__main__":
     check_and_install_pkg("pandas")
     import pandas as pd
 
-VERSION = "0.1.0"
+VERSION = "0.1.1"
 
 # argument parser
 parser = argparse.ArgumentParser(
@@ -53,26 +53,33 @@ output = Path(args.output)
 fileExtension = args.extension
 
 # check if the input path and output path exist
-assert Path(filepath).exists(), "input path does not exist"
-assert Path(output).exists(), "output path does not exist"
+assert filepath.exists(), "input path does not exist"
+assert output.exists(), "output path does not exist"
 
 # detect all given files in the input path
-fqFiles = filepath.glob("*.{}".format(fileExtension))
+fqFilesIter = filepath.glob("*.{}".format(fileExtension))
+fqFiles = [i for i in fqFilesIter]
+
 samples = list(set([str(i).split("/")[-1].split("_")[0] for i in fqFiles]))
+end = list(set(
+    [str(i).split("/")[-1].split("_")[1].split(".")[0] for i in fqFiles]))
 
 assert len(list(samples)) > 0, "no files found in input path, please check \
   your input path and file extension"
+
+assert len(end) == 2, "Sample reads are not equal to 2, \
+  please check your file format."
 
 # create sample sheet with pandas
 sample_sheet = pd.DataFrame(samples, columns=["sample"])
 sample_sheet["group"] = sample_sheet["sample"].apply(lambda x: x.split("-")[0])
 sample_sheet["read1"] = sample_sheet["sample"].apply(
-    lambda x: "{}_R1.{}".format(str(filepath)+"/"+x, fileExtension))
+    lambda x: "{}_{}.{}".format(Path(filepath, x), end[0], fileExtension))
 sample_sheet["read2"] = sample_sheet["sample"].apply(
-    lambda x: "{}_R2.{}".format(str(filepath)+"/"+x, fileExtension))
+    lambda x: "{}_{}.{}".format(Path(filepath, x), end[1], fileExtension))
 sample_sheet["extra"] = ""
 
-outputFile = str(output.absolute())+"/"+"sample_sheet.csv"
+outputFile = Path(output, "sample_sheet.csv").absolute()
 
 print("📂 Input path: {}".format(filepath.absolute()))
 print("📂 Your file format: {}".format(fileExtension))
