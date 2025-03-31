@@ -1,11 +1,11 @@
 # path  to sample sheet (CSV format, columns: sample, group, ...)
-samples: .test/config/sample_sheet.csv
+samples: config/sample_sheet.csv
 
 ref:
   # Define the reference genome to use (must in fasta format, gz compression is not supported). 
-  genome: .test/ref/Saccharomyces_cerevisiae.fa
+  genome: ref/Saccharomyces_cerevisiae.fa
   # Which genome annotation to use.
-  annotation: .test/ref/Saccharomyces_cerevisiae.gtf
+  annotation: ref/Saccharomyces_cerevisiae.gtf
 
 SRA:
   activate: False
@@ -14,7 +14,7 @@ SRA:
   # and fulfill the needed information in the sample_sheet.csv file.
 
   # path to SRA accession list
-  acc_list: .test/config/sra.txt
+  acc_list: config/sra.txt
   output_dir: out/SRA/
 
 featureCounts:
