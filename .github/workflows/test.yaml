@@ -31,18 +31,15 @@ jobs:
     - name: Test workflow sra
       uses: snakemake/snakemake-github-action@v2.0.0
       with:
-        directory: .test
         snakefile: workflow/Snakefile
         args: "sra --configfile .test/config/config.yaml --use-conda --show-failed-logs --cores 2 --conda-cleanup-pkgs cache"
     - name: Test workflow upstream
       uses: snakemake/snakemake-github-action@v2.0.0
       with:
-        directory: .test
         snakefile: workflow/Snakefile
         args: "--configfile .test/config/config.yaml --use-conda --show-failed-logs --cores 2 --conda-cleanup-pkgs cache"
     # - name: Test workflow report
     #   uses: snakemake/snakemake-github-action@v2.0.0
     #   with:
-    #     directory: .test
     #     snakefile: workflow/Snakefile
     #     args: "reports --configfile .test/config/config.yaml --use-conda --show-failed-logs --cores 2 --conda-cleanup-pkgs cache"
