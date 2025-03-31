@@ -43,6 +43,8 @@ rule gffcompare_transcripts:
 		"out/gffcompare/GFFcompare.annotated.gtf"
 	threads: 10
 	conda:
-		"../envs/stringtie.yaml"
+		"../envs/stringtie.yaml",
+	log:
+		"out/logs/gffcompare_trans.log",
 	shell:
 		"gffcompare -G -r {input.anno} -o out/gffcompare/GFFcompare {input.st_transcripts}"

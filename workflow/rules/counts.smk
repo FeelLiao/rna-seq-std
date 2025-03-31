@@ -1,3 +1,4 @@
+import os
 rule counts:
     input:
         bam="out/mapped/{sample}.bam",
@@ -29,7 +30,9 @@ rule counts_merge:
         merged="out/counts/samples_merged_counts.csv",
         tpm="out/counts/samples_merged_tpm.csv",
     params:
-        input_dir="out/featurecounts"
+        input_dir=lambda w, input: os.path.splitext(input[0])[0]
+    log:
+        "out/logs/counts_merge.log"
     conda:
         "../envs/featurecounts.yaml"
     script:

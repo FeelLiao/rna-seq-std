@@ -15,16 +15,3 @@ rule fastp_pe:
     threads: 5
     script:
         "../scripts/fastp.py"
-
-rule samtools_flagstat:
-    input:
-        "out/mapped/{sample}.bam",
-    output:
-        "out/flagstat/{sample}.txt",
-    params:
-        extra="",  # optional params string
-    threads: 5
-    conda:
-        "../envs/hisat2.yaml",
-    script:
-        "../scripts/samtools_flagstat.py"
