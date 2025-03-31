@@ -21,3 +21,9 @@ featureCounts:
   # Define the featureCounts parameters
   attribute_type: gene_id
   feature_type: exon
+
+clean: True
+  # If you want to clean the intermediate files, set it to True
+  # If you want to keep the intermediate files, set it to False
+  # The default is False
+

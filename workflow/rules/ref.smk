@@ -6,6 +6,7 @@ rule hisat2_index:
     params:
         extra="--seed 42",
     priority: 50,
+    cache: True,
     conda:
         "../envs/hisat2.yaml",
     log:

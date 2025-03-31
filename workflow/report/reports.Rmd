@@ -1,0 +1,56 @@
+---
+title: "RNA-Seq Standard Report"
+output:
+    html_document:
+        toc: true
+        toc_float: true
+    
+---
+
+```{r setup, include=FALSE}
+
+knitr::opts_chunk$set(echo = TRUE, message = FALSE, warning = FALSE)
+
+
+```
+
+## 1.Introduction
+
+This report provides a comprehensive overview of the RNA-Seq standard analysis pipeline, 
+detailing each step from raw data processing to final results. The analysis is performed using the `R`  and `Python` programming language and 
+various bioinformatics software.
+
+The report is structured into several sections, each corresponding to a specific step in the RNA-Seq analysis workflow. The sections include:
+
+- **Quality Control**: This section covers the assessment of the quality of raw sequencing data using `fastp`.
+- **Alignment**: This section describes the alignment of reads to a reference genome using `HISAT2`.
+- **Quantification**: This section details the quantification of gene expression levels using `featureCounts`
+from `Subread`.  
+
+## 2.Quality Control
+
+The quality of the raw sequencing data is assessed using `fastp`, which provides a comprehensive set of metrics to evaluate the quality of the reads.
+The following table summarizes the quality control metrics for each sample:
+
+```{r}
+
+
+```
+
+## 3.Alignment
+
+## 4.Quantification
+
+## Reference
+
+### Software and Tools
+
+The analysis was performed using the following software and tools:
+
+| Software | Version | Description |
+|--------|-------|-----------|
+| [fastp](https://github.com/OpenGene/fastp) | 0.24.0 | raw reads quality control |
+| [HISAT2](https://github.com/DaehwanKimLab/hisat2) | 2.2.1 | clean reads mapping to reference genome and genome index |
+| [Subread](https://github.com/ShiLab-Bioinformatics/subread) | 2.0.8 | transcription quantification: count reads to genomic features |
+| [R](https://www.r-project.org/) | 4.3.3 | generate reports and data visualization |
+| [Python](https://www.python.org/) | 3.13.0 | integrate shell command with snakemake and process data |

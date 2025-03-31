@@ -33,7 +33,7 @@ def get_final_output():
     final_output.append("out/counts/samples_merged_tpm.csv")
     # final_output.append(expand("trimmed_reports/html/{sample}.html",sample=SAMPLES))
     # final_output.extend(expand("trimmed_reports/json/{sample}.json",sample=SAMPLES))
-    final_output.extend(expand("out/flagstat/{sample}.txt",sample=SAMPLES))
+    # final_output.extend(expand("out/flagstat/{sample}.txt",sample=SAMPLES))
     final_output.extend(expand("out/featurecounts/{sample}.txt",sample=SAMPLES))
           
     return final_output

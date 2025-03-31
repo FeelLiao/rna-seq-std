@@ -17,6 +17,7 @@ include: "rules/ref.smk"
 include: "rules/seq.smk"
 include: "rules/counts.smk"
 include: "rules/align.smk"
+include: "rules/new_gene.smk"
 
 
 ##### target rules #####
@@ -29,3 +30,8 @@ rule all:
 rule sra:
     input:
         directory(config["SRA"]["output_dir"])
+
+rule newGene:
+    input:
+      "out/stringtie/merged_assembly.gtf",
+      "out/gffcompare/GFFcompare.annotated.gtf"
