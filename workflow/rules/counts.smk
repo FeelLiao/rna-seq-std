@@ -1,4 +1,3 @@
-import os
 rule counts:
     input:
         bam="out/mapped/{sample}.bam",
@@ -30,7 +29,7 @@ rule counts_merge:
         merged="out/counts/samples_merged_counts.csv",
         tpm="out/counts/samples_merged_tpm.csv",
     params:
-        input_dir=lambda w, input: os.path.splitext(input[0])[0]
+        input_dir=lambda w, input: Path(input[0]).parent,
     log:
         "out/logs/counts_merge.log"
     conda:
