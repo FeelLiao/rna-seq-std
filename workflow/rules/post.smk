@@ -9,7 +9,7 @@ rule post_process:
     log:
         "out/logs/post_process.log",
     params:
-        trimdrp ="out/reports",
+        trimdrp =lambda w, output: Path(output[0]).parent,
         hisat2log = "out/logs/hisat2_align",
         clean = config["clean"],
         newGene = config["newGene"]["activate"],
