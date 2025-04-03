@@ -19,7 +19,7 @@ SRA:
   # and fulfill the needed information in the sample_sheet.csv file.
 
   # path to SRA accession list
-  acc_list: config/SRR_Acc_List.txt
+  acc_list: config/sra.txt
   output_dir: SRA/
 
 # RNA-seq upstream config
