@@ -3,9 +3,11 @@ rule post_process:
         get_post_input(),
     output:
         "out/reports/trim_report.csv",
-        "out/reports/hisat2_align_report.csv"
+        "out/reports/hisat2_align_report.csv",
     conda:
         "../envs/reports.yaml",
+    log:
+        "out/logs/post_process.log",
     params:
         trimdrp ="out/trimmed_reports",
         hisat2log = "out/logs/hisat2_align",
@@ -21,6 +23,8 @@ rule reports:
         "out/quantification/samples_merged_tpm.csv",
     output:
         "out/reports/report.html",
+    log:
+        "out/logs/report.log",
     conda:
         "../envs/reports.yaml",
     script:
