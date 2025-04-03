@@ -27,16 +27,30 @@ def get_samples():
 
 SAMPLES=get_samples()
 
-def get_final_output():
+def get_upstream_output():
     final_output = []
-    final_output.append("out/counts/samples_merged_counts.csv")
-    final_output.append("out/counts/samples_merged_tpm.csv")
-    # final_output.append(expand("trimmed_reports/html/{sample}.html",sample=SAMPLES))
-    # final_output.extend(expand("trimmed_reports/json/{sample}.json",sample=SAMPLES))
-    # final_output.extend(expand("out/flagstat/{sample}.txt",sample=SAMPLES))
+    final_output.append("out/quantification/samples_merged_counts.csv")
+    final_output.append("out/quantification/samples_merged_tpm.csv")
     final_output.extend(expand("out/featurecounts/{sample}.txt",sample=SAMPLES))
-          
+
+    if config["newGene"]["activate"]:
+      final_output.append("out/newGene/merged_assembly.gtf")
+      final_output.append("out/newGene/gffcompare.annotated.gtf")
+
+    if config["reports"]:
+      final_output.append("out/reports/report.html")
+
     return final_output
+
+def get_post_input():
+    post_output=[]
+    post_output.append("out/quantification/samples_merged_counts.csv")
+    post_output.append("out/quantification/samples_merged_tpm.csv")
+
+    if config["newGene"]["activate"]:
+        post_output.append("out/newGene/merged_assembly.gtf")
+        post_output.append("out/newGene/gffcompare.annotated.gtf")
+    return post_output
 
 
 

@@ -1,3 +1,5 @@
+# General config
+
 # path  to sample sheet (CSV format, columns: sample, group, ...)
 samples: config/sample_sheet.csv
 
@@ -6,6 +8,11 @@ ref:
   genome: ref/genome.fasta
   # Which genome annotation to use.
   annotation: ref/annotation.gtf
+
+clean: True
+reports: True
+
+# SRA config
 
 SRA:
   activate: false
@@ -17,13 +24,19 @@ SRA:
   acc_list: config/SRR_Acc_List.txt
   output_dir: SRA/
 
+# RNA-seq upstream config
+
 featureCounts:
   # Define the featureCounts parameters
   attribute_type: gene_id
   feature_type: exon
 
-clean: True
-  # If you want to clean the intermediate files, set it to True
-  # If you want to keep the intermediate files, set it to False
-  # The default is False
+# Define the newGene parameters
+newGene:
+  # If you want to activate newGene, set it to True
+  activate: False
+  # Define the stringtie parameters
+  stringtie_params: "-j 1 -c 1 -f 0.01"
 
+
+# RNA-seq downstream config

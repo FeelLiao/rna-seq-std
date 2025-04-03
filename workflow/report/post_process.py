@@ -4,18 +4,27 @@ import json
 import re
 import shutil
 
+# get the parameters
 trimdir = snakemake.params.get("trimdrp")
 aligndir = sankemake.params.get("hisat2log")
-
 trimout = snakemake.output[0]
 alignout = snakemake.output[1]
+clean = snakemake.params.get("clean")
+newGene = snakemake.params.get("newGene")
 
-clean = snakemake.params.get("clean", False)
-
+# check the parameters
 aligndir = Path(aligndir)
 alignout = Path(alignout)
 trimdir = Path(trimdir)
 trimout = Path(trimout)
+
+# define the temp directories 
+hisat2_index = Path("out/hisat2_index")
+hisat2_mapped = Path("out/mapped")
+fastp_report_json = Path("out/reports/json")
+fastp_trimmed = Path("out/trimmed")
+featureCounts = Path("out/featurecounts")
+stringtie = Path("out/stringtie")
 
 assert trimdir.exists(), f"Trimmed reports directory {trimdir} does not exist"
 assert aligndir.exists(), f"HISAT2 log directory {aligndir} does not exist"
@@ -133,4 +142,10 @@ align_report.to_csv(alignout, index=False)
 
 # Clean up the temporary files
 if clean:
-    pass
+    shutil.rmtree(hisat2_index)
+    shutil.rmtree(fastp_report_json)
+    shutil.rmtree(fastp_trimmed)
+    shutil.rmtree(featureCounts)
+    shutil.rmtree(hisat2_mapped)
+    if newGene:
+        shutil.rmtree(stringtie)

@@ -6,12 +6,18 @@ rule stringtie_initial:
 	output:
 		"out/stringtie/sample_gtf/{sample}.gtf"
 	log:
-		"out/logs/stringtie_init/{sample}.log"
+		"out/logs/stringtie_init/{sample}.log",
+	params:
+		param = config["newGene"]["stringtie_params"],
 	threads: 8 
 	conda:
 		"../envs/stringtie.yaml"
 	shell: 
-		"stringtie -v -p {threads} -G {input.anno} -o {output} {input.sbam} > {log} 2>&1"
+		"stringtie -v -p {threads} \
+    {params.param} \
+    -G {input.anno} \
+    -o {output} \
+    {input.sbam} > {log} 2>&1"
 
 
 # Merge assembled transcripts from all samples. 
@@ -22,7 +28,7 @@ rule stringtie_merge:
 		gtf=expand("out/stringtie/sample_gtf/{sample}.gtf",sample=SAMPLES), 
 		anno=config["ref"]["annotation"],
 	output:
-		"out/stringtie/merged_assembly.gtf"
+		"out/newGene/merged_assembly.gtf"
 	log:
 		"out/logs/stringtie_merge.log"
 	threads: 8
@@ -37,14 +43,14 @@ rule stringtie_merge:
 # between reference transcripts and assembled transcripts.
 rule gffcompare_transcripts:
 	input:
-		st_transcripts="out/stringtie/merged_assembly.gtf",
+		st_transcripts="out/newGene/merged_assembly.gtf",
 		anno=config["ref"]["annotation"],
 	output:
-		"out/gffcompare/GFFcompare.annotated.gtf"
+		"out/newGene/gffcompare.annotated.gtf"
 	threads: 10
 	conda:
 		"../envs/stringtie.yaml",
 	log:
 		"out/logs/gffcompare_trans.log",
-	shell:
-		"gffcompare -G -r {input.anno} -o out/gffcompare/GFFcompare {input.st_transcripts}"
+	script:
+		"../scripts/gffcompare.py"

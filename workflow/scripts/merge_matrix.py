@@ -9,6 +9,7 @@ import pandas as pd
 input_dir = snakemake.params.get("input_dir")
 merge_matrix = snakemake.output.get("merged")
 tpm_matrix = snakemake.output.get("tpm")
+# fpkm_matrix = snakemake.output.get("fpkm")
 
 expression_files = Path(input_dir).glob("*.txt")
 merge_matrix = Path(merge_matrix)

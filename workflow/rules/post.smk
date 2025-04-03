@@ -1,22 +1,24 @@
 rule post_process:
     input:
-        get_final_output(),
+        get_post_input(),
     output:
-        "out/trimmed_reports/trim_report.csv",
-        "out/hisat2_align_report.csv"
+        "out/reports/trim_report.csv",
+        "out/reports/hisat2_align_report.csv"
     conda:
         "../envs/reports.yaml",
     params:
-        trimdrp ="out/trimmed_reports",  
+        trimdrp ="out/trimmed_reports",
         hisat2log = "out/logs/hisat2_align",
         clean = config["clean"],
+        newGene = config["newGene"]["activate"],
     script:
         "../report/post_process.py"
 
 rule reports:
     input:
-        "out/trimmed_reports/trim_report.csv",
-        "out/hisat2_align_report.csv"
+        "out/reports/trim_report.csv",
+        "out/reports/hisat2_align_report.csv",
+        "out/quantification/samples_merged_tpm.csv",
     output:
         "out/reports/report.html",
     conda:

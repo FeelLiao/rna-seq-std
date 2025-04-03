@@ -1,5 +1,5 @@
 ---
-title: "RNA-Seq Standard Report"
+title: "RNA-Seq Standard Report written by Feel Liao"
 output:
     html_document:
         toc: true
@@ -7,11 +7,9 @@ output:
     
 ---
 
-```{r setup, include=FALSE}
-
-knitr::opts_chunk$set(echo = TRUE, message = FALSE, warning = FALSE)
-
-
+```{r, label="setup", include=FALSE}
+library(tidyverse)
+library(knitr)
 ```
 
 ## 1.Introduction
@@ -30,16 +28,39 @@ from `Subread`.
 ## 2.Quality Control
 
 The quality of the raw sequencing data is assessed using `fastp`, which provides a comprehensive set of metrics to evaluate the quality of the reads.
+
 The following table summarizes the quality control metrics for each sample:
 
 ```{r}
-
-
+#| label="qc_table"
+#| echo=FALSE
+qc_table <- read_csv(snakemake@input[[1]])
+kable(qc_table)
 ```
 
 ## 3.Alignment
+The alignment of reads to the reference genome is performed using `HISAT2`. 
+
+The following table summarizes the alignment metrics for each sample:
+```{r}
+#| label="alignment_table"
+#| echo=FALSE
+alignment_table <- read_csv(snakemake@input[[2]])
+kable(alignment_table)
+```
 
 ## 4.Quantification
+
+The quantification of gene expression levels is performed using `featureCounts` from `Subread`.
+
+The following table shows the first 10 raws of the quantification metrics for each sample:
+
+```{r}
+#| label="quantification_table"
+#| echo=FALSE
+quantification_table <- read_csv(snakemake@input[[3]])
+kable(head(quantification_table))
+```
 
 ## Reference
 

@@ -3,8 +3,8 @@ rule fastp_pe:
         get_fq
     output:
         trimmed=["out/trimmed/{sample}_1.fq", "out/trimmed/{sample}_2.fq"],
-        html="out/trimmed_reports/html/{sample}.html",
-        json="out/trimmed_reports/json/{sample}.json"
+        html="out/reports/fastp_reports_html/{sample}.html",
+        json="out/reports/json/{sample}.json"
     log:
         "out/logs/fastp/{sample}.log"
     conda:

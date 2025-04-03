@@ -7,17 +7,34 @@ ref:
   # Which genome annotation to use.
   annotation: ref/Saccharomyces_cerevisiae.gtf
 
+clean: True
+reports: True
+
+# SRA config
+
 SRA:
-  activate: False
-  # If you activate SRA by setting this to `True`, you will have to
-  # provide the path of SRA accession files (usually named SRR_Acc_List.txt) 
+  activate: false
+  # If you run SRA by targeting sra in snakemake, you will have to
+  # provide the path of SRA accession files (usually named SRR_Acc_List.txt)
   # and fulfill the needed information in the sample_sheet.csv file.
 
   # path to SRA accession list
-  acc_list: config/sra.txt
-  output_dir: out/SRA/
+  acc_list: config/SRR_Acc_List.txt
+  output_dir: SRA/
+
+# RNA-seq upstream config
 
 featureCounts:
   # Define the featureCounts parameters
   attribute_type: gene_id
   feature_type: exon
+
+# Define the newGene parameters
+newGene:
+  # If you want to activate newGene, set it to True
+  activate: False
+  # Define the stringtie parameters
+  stringtie_params: "-j 1 -c 1 -f 0.01"
+
+
+# RNA-seq downstream config

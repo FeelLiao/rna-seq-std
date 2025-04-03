@@ -26,8 +26,9 @@ rule counts_merge:
     input:
         expand("out/featurecounts/{sample}.txt",sample=SAMPLES)
     output:
-        merged="out/counts/samples_merged_counts.csv",
-        tpm="out/counts/samples_merged_tpm.csv",
+        merged="out/quantification/samples_merged_counts.csv",
+        tpm="out/quantification/samples_merged_tpm.csv",
+        # fpkm="out/quantification/samples_merged_fpkm.csv"
     params:
         input_dir=lambda w, input: Path(input[0]).parent,
     log:
