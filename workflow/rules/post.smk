@@ -9,7 +9,7 @@ rule post_process:
     log:
         "out/logs/post_process.log",
     params:
-        trimdrp ="out/trimmed_reports",
+        trimdrp ="out/reports",
         hisat2log = "out/logs/hisat2_align",
         clean = config["clean"],
         newGene = config["newGene"]["activate"],
