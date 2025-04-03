@@ -6,7 +6,7 @@ import shutil
 
 # get the parameters
 trimdir = snakemake.params.get("trimdrp")
-aligndir = sankemake.params.get("hisat2log")
+aligndir = snakemake.params.get("hisat2log")
 trimout = snakemake.output[0]
 alignout = snakemake.output[1]
 clean = snakemake.params.get("clean")
