@@ -1,5 +1,5 @@
 ---
-title: "RNA-Seq Standard Report written by Feel Liao"
+title: "RNA-Seq Standard Report"
 output:
     html_document:
         toc: true
@@ -31,7 +31,7 @@ The quality of the raw sequencing data is assessed using `fastp`, which provides
 
 The following table summarizes the quality control metrics for each sample:
 
-```{r, label="qc_table", echo=FALSE}
+```{r, label="qc_table", echo=FALSE, warning=FALSE, message=FALSE}
 qc_table <- read_csv(snakemake@input[[1]])
 kable(qc_table)
 ```
@@ -40,7 +40,7 @@ kable(qc_table)
 The alignment of reads to the reference genome is performed using `HISAT2`. 
 
 The following table summarizes the alignment metrics for each sample:
-```{r, label="alignment_table", echo=FALSE}
+```{r, label="alignment_table", echo=FALSE, warning=FALSE, message=FALSE}
 alignment_table <- read_csv(snakemake@input[[2]])
 kable(alignment_table)
 ```
@@ -51,7 +51,7 @@ The quantification of gene expression levels is performed using `featureCounts` 
 
 The following table shows the first 10 raws of the quantification metrics for each sample:
 
-```{r,label="quantification_table", echo=FALSE}
+```{r,label="quantification_table", echo=FALSE, warning=FALSE, message=FALSE}
 quantification_table <- read_csv(snakemake@input[[3]])
 kable(head(quantification_table))
 ```
