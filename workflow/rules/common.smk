@@ -31,7 +31,7 @@ def get_upstream_output():
     final_output = []
     final_output.append("out/quantification/samples_merged_counts.csv")
     final_output.append("out/quantification/samples_merged_tpm.csv")
-    final_output.extend(expand("out/featurecounts/{sample}.txt",sample=SAMPLES))
+    # final_output.extend(expand("out/featurecounts/{sample}.txt",sample=SAMPLES))
 
     if config["newGene"]["activate"]:
       final_output.append("out/newGene/merged_assembly.gtf")
