@@ -1,47 +1,77 @@
-
-# Snakemake工作流：rna-seq-std 
-
-本工作流旨在提供一个兼具可靠性和可重复性的标准RNA-Seq分析流程。若要使用此工作流进行分析，你需要在本地机器上安装 [Snakemake](https://snakemake.readthedocs.io/en/stable/index.html) 软件和 [Conda](https://www.anaconda.com/) 环境管理工具。 
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.15148691.svg)](https://doi.org/10.5281/zenodo.15148691)
+[![GitHub license](https://img.shields.io/github/license/FeelLiao/rna-seq-std)](https://github.com/FeelLiao/rna-seq-std/blob/main/LICENSE)
+[![Tests](https://github.com/FeelLiao/rna-seq-std/actions/workflows/test.yaml/badge.svg)](https://github.com/FeelLiao/rna-seq-std/actions/workflows/test.yaml)
+![GitHub Release](https://img.shields.io/github/v/release/FeelLiao/rna-seq-std)
+[![Snakemake](https://img.shields.io/badge/Snakemake->=8.25.3-green)](https://snakemake.readthedocs.io/en/stable/)
  
-强烈建议某些地区的用户使用镜像源来下载Conda软件包。在中国，推荐使用 [清华大学源](https://mirrors.tuna.tsinghua.edu.cn/help/anaconda/) ，尤其是在教育网中的用户。本项目需要两个非官方的Conda源：conda-forge 和 bioconda 。 
+# RNA-Seq分析流程：基于Snakemake的可扩展转录组分析工作流 
  
-该工作流分为三个部分： 
-- [x] 从NCBI下载SRA文件 
-- [x] RNA-Seq上游分析 
-  - [x] 使用 `fastp` 对原始 reads 进行质量控制 
-  - [x] 使用 `hisat2` 构建基因组索引并对 clean reads 进行比对 
-  - [x] 使用 `featureCounts` 进行转录本定量 
-- [ ] RNA-Seq下游分析 
-  - [ ] 使用 `edgeR` 进行差异表达基因分析
  
-⚠️注意：该工作流仍在开发中，如果遇到任何问题，欢迎提交 issues 
- 
-## 使用方法
+一个用于RNA-Seq实验的Snakemake工作流，涵盖从SRA或双端测序数据的原始序列文件开始的质控、比对、定量及差异表达基因分析，并支持通过Rmarkdown生成综合性分析报告。
 
-1. 克隆此仓库
-
+本工作流旨在为RNA-Seq数据分析提供完整、可复现且用户友好的解决方案。使用前需确保本地环境已安装[Snakemake](https://snakemake.readthedocs.io/en/stable/index.html)和[Conda](https://www.anaconda.com/)包管理系统。
+ 
+> [!NOTE]  
+> 建议部分地区用户配置Conda镜像加速下载。中国境内用户推荐使用[清华源](https://mirrors.tuna.tsinghua.edu.cn/help/anaconda/)，尤其是教育网用户。
+ 
+**若在学术出版物中使用本工作流，请通过DOI引用以注明来源：[10.5281/zenodo.15148691](https://doi.org/10.5281/zenodo.15148691)**
+ 
+# 🌟 核心特性 
+ 
+本工作流提供端到端RNA-Seq分析解决方案，具有以下显著优势：
+ 
+1. 全流程分析体系
+- 原始数据处理：支持SRA自动下载（通过NCBI工具）或直接FASTQ输入  
+- 质量控制：集成fastp的MultiQC的质控模块 
+- 序列比对：基于HISAT2的基因组自动索引构建与比对  
+- 定量分析：FeatureCounts转录本计数  
+- 差异表达：整合edgeR分析模块（开发中）  
+- 创新分析：de novo转录本组装（StringTie）及lncRNA预测流程 
+ 
+2. 工业级可复现性
+- Conda环境管理确保依赖版本可控  
+- 通过YAML配置文件集中管理参数  
+ 
+3. 智能化报告系统
+- 基于RMarkdown的交互式HTML报告 
+- 样本指标可视化（PCA分析、样本聚类、MA图）
+ 
+> [!Important]
+> 本项目仍处于持续开发阶段，如有问题请提交issue反馈。
+ 
+# 🔭 发展路线  
+ 
+已实现功能  
+- [x] SRA→FASTQ自动化转换  
+- [x] 集成MultiQC的质控流程  
+- [x] 转录本定量
+- [x] 新转录本检测（StringTie）  
+- [x] RMarkdown报告生成  
+ 
+规划功能  
+- [ ] edgeR差异基因分析 
+- [ ] WGCNA共表达网络分析  
+- [ ] lncRNA鉴定流程
+ 
+# 🚀 快速入门  
+ 
+1. 克隆仓库 
+ 
 ```bash 
-git clone 
+git clone https://github.com/FeelLiao/rna-seq-std.git 
 ```
-
-2. 根据你的需求修改 `config/config.yaml` 文件，更多信息请阅读 [config](config/README.md) 。 
-
-3. 使用 `snakemake` 运行此工作流。 
-
+ 
+2. 根据需求修改`config/config.yaml`配置文件，详见[config](config/README.md)
+ 
+3. 运行Snakemake工作流 
+ 
 ```bash 
-snakemake -c 20 --use-conda 
-``` 
-
-  - -c：该工作流将使用的线程数。 
-
-4. 结果：分析结果将存储在 `out` 目录中。 
+snakemake <target> -c 20 --use-conda --conda-cleanup-pkgs 
+```
  
-## 特性
-
-- ❌ snakemake 报告 
-- [ ] Rmarkdown 报告 
+4. 结果文件将输出至`out`目录 
  
-## 参考资料 
+# 📑 参考资料 
 
 - [kevinrue/snakemake_rnaseq_hisat2](https://github.com/kevinrue/snakemake_rnaseq_hisat2)
 - [snakemake-wrappers-hisat2-index](https://snakemake-wrappers.readthedocs.io/en/stable/wrappers/bio/hisat2/index.html)

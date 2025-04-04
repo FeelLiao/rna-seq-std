@@ -32,7 +32,7 @@ featureCounts:
 # Define the newGene parameters
 newGene:
   # If you want to activate newGene, set it to True
-  activate: False
+  activate: True
   # Define the stringtie parameters
   stringtie_params: "-j 1 -c 1 -f 0.01"
 

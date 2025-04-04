@@ -55,6 +55,16 @@ Which genome annotation to use. Usually, the more precise the annotation is, the
 
 Both gff and gtf format are acceptable.
 
+# Clean
+
+If you want to clean the output, default is `true`. If you set this to `true`, the output will be removed after the workflow finished.
+This is useful when you want to save disk space. Only the intermediate files will be removed, the final output will be kept.
+
+# Reports
+
+If you want to generate reports, default is `true`. If you set this to `true`, the report will be generated after the workflow finished.
+This is useful when you want to check the quality of the workflow. The report will be generated in the `out/reports` directory.
+
 # SRA download configuration (SRA)
 
 To successfully run the SRA download , you need a stable connection to NCBI, or its a annoying time consuming task.
@@ -86,3 +96,15 @@ The directory that will store the processed sra files, usually in fastq format.
 # featureCounts configuration (featureCounts)
 
 Specify the parameters that featureCounts use. For more information, see [official website](https://subread.sourceforge.net/featureCounts.html)
+
+# New Gene
+
+If you want to add new gene annotation, default is `false`. If you set this to `true`, the new gene annotation will be added to the existing gene annotation. 
+
+## activate
+
+When you plan to add new gene annotation, you need to set this to `true`.
+
+## stringtie_params
+
+The parameters that stringtie use. For more information, see [official website](https://ccb.jhu.edu/software/stringtie/index.shtml?t=example)
