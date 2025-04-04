@@ -42,12 +42,10 @@ jobs:
         snakefile: workflow/Snakefile
         stagein: "conda config --set channel_priority flexible"
         args: "--configfile .test/config/config.yaml --use-conda --show-failed-logs --cores 2 --conda-cleanup-pkgs cache"
-    - name: Debug directory
-      run: ls -R .test/
     - name: Upload Results
       uses: actions/upload-artifact@v4.6.2
       with:
         name: test-output
-        path: .test/
+        path: .test/out/
         include-hidden-files: true
 
