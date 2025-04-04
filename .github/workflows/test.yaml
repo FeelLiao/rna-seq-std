@@ -49,4 +49,5 @@ jobs:
       with:
         name: test-output
         path: .test/
+        include-hidden-files: true
 
