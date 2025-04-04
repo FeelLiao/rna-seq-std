@@ -38,4 +38,7 @@ new_gene_ids = newGeneGtf(out_gtf)
 new_gene_ids.to_csv(novel_ids,  index=False,
                     header=False, sep='\t')
 
-shell("grep -wFf {novel_ids} {out_gtf} > {novel_gtf}")
+if new_gene_ids.empty:
+    shell("echo 'No novel genes found'")
+else:
+    shell("grep -wFf {novel_ids} {out_gtf} > {novel_gtf}")
