@@ -19,11 +19,12 @@ jobs:
         snakefile: workflow/Snakefile
         args: "--configfile .test/config/config.yaml --lint"
 
-  run-workflow:
+  run-workflow-sra:
     runs-on: ubuntu-latest
     needs:
       - linting
     steps:
+
     - name: Checkout repository with submodules
       uses: actions/checkout@v3
       with:
@@ -35,6 +36,17 @@ jobs:
         snakefile: workflow/Snakefile
         stagein: "conda config --set channel_priority flexible"
         args: "sra --configfile .test/config/config.yaml --use-conda --show-failed-logs --cores 2 --conda-cleanup-pkgs cache"
+
+  run-workflow-upstream:
+    runs-on: ubuntu-latest
+    needs:
+      - linting
+    steps:
+    
+    - name: Checkout repository with submodules
+      uses: actions/checkout@v3
+      with:
+        submodules: recursive
     - name: Test workflow upstream
       uses: FeelLiao/snakemake-github-action@v2.1
       with:
