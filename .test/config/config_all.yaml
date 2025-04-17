@@ -1,13 +1,11 @@
-# General config
-
 # path  to sample sheet (CSV format, columns: sample, group, ...)
 samples: config/sample_sheet.csv
 
 ref:
   # Define the reference genome to use (must in fasta format, gz compression is not supported). 
-  genome: ref/genome.fasta
+  genome: ref/Saccharomyces_cerevisiae.fa
   # Which genome annotation to use.
-  annotation: ref/annotation.gtf
+  annotation: ref/Saccharomyces_cerevisiae.gtf
 
 clean: True
 reports: True
@@ -21,7 +19,7 @@ SRA:
   # and fulfill the needed information in the sample_sheet.csv file.
 
   # path to SRA accession list
-  acc_list: config/SRR_Acc_List.txt
+  acc_list: config/sra.txt
   output_dir: SRA/
 
 # RNA-seq upstream config
@@ -42,10 +40,10 @@ newGene:
 # RNA-seq downstream config
 
 PCA:
-  activate: True
+  activate: False
   # number of dimensions kept in the results (by default 5)
   ncp: 5
-  
+
 edgeR:
   activate: True
   # Define the edgeR parameters
@@ -54,20 +52,3 @@ edgeR:
   fdr_threshold: 0.05
   # The default is set to "1" for logFC threshold, but you can change it to any value
   logFC_threshold: 1
-
-
-# WGCNA:
-#   activate: True
-#   # Define the WGCNA parameters
-#   # The default is set to "power = 6, type = "unsigned"" for network construction, but you can change it to any value
-#   network_construction: power = 6, type = "unsigned"
-#   # The default is set to "minModuleSize = 30" for module detection, but you can change it to any value
-#   module_detection: minModuleSize = 30
-#   # The default is set to "cutHeight = 0.25" for module merging, but you can change it to any value
-#   module_merging: cutHeight = 0.25
-#   # The default is set to "0.05" for p-value threshold, but you can change it to any value
-#   p_value: 0.05
-
-# lncRNA:
-#   activate: True
-

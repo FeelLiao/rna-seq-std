@@ -7,13 +7,13 @@ ref:
   # Which genome annotation to use.
   annotation: ref/Saccharomyces_cerevisiae.gtf
 
-clean: True
-reports: True
+clean: False
+reports: False
 
 # SRA config
 
 SRA:
-  activate: false
+  activate: True
   # If you run SRA by targeting sra in snakemake, you will have to
   # provide the path of SRA accession files (usually named SRR_Acc_List.txt)
   # and fulfill the needed information in the sample_sheet.csv file.
@@ -32,7 +32,7 @@ featureCounts:
 # Define the newGene parameters
 newGene:
   # If you want to activate newGene, set it to True
-  activate: True
+  activate: False
   # Define the stringtie parameters
   stringtie_params: "-j 1 -c 1 -f 0.01"
 
@@ -43,3 +43,12 @@ PCA:
   activate: False
   # number of dimensions kept in the results (by default 5)
   ncp: 5
+
+edgeR:
+  activate: False
+  # Define the edgeR parameters
+  # The default is set to "TMM" for normalization, but you can change it to "RLE" or "none"
+  normalization: TMM
+  fdr_threshold: 0.05
+  # The default is set to "1" for logFC threshold, but you can change it to any value
+  logFC_threshold: 1

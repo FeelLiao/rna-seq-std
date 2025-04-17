@@ -30,8 +30,7 @@ def get_samples():
 
 SAMPLES = get_samples()
 
-
-def get_upstream_output():
+def get_final_input():
 	final_output = []
 	final_output.append("out/quantification/samples_merged_counts.csv")
 	final_output.append("out/quantification/samples_merged_tpm.csv")
@@ -46,6 +45,22 @@ def get_upstream_output():
 
 	if config["PCA"]["activate"]:
 		final_output.append("out/downstream/pca_plot.pdf")
+	
+	if config["edgeR"]["activate"]:
+		final_output.append("out/downstream/deg_table.csv")
+
+	return final_output
+
+def get_upstream_output():
+	final_output = []
+	final_output.append("out/quantification/samples_merged_counts.csv")
+	final_output.append("out/quantification/samples_merged_tpm.csv")
+	# final_output.extend(expand("out/featurecounts/{sample}.txt",sample=SAMPLES))
+
+	if config["newGene"]["activate"]:
+		final_output.append("out/newGene/merged_assembly.gtf")
+		final_output.append("out/newGene/gffcompare.annotated.gtf")
+
 
 	return final_output
 
@@ -75,4 +90,22 @@ def get_downstream_input():
 	downstream_input = []
 	if config["PCA"]["activate"]:
 		downstream_input.append("out/downstream/pca_plot.pdf")
+	if config["edgeR"]["activate"]:
+		downstream_input.append("out/downstream/deg_table.csv")
 	return downstream_input
+
+def get_report_input():
+	report_input = {}
+	report_input["trim"] = "out/reports/trim_report.csv"
+	report_input["align"] = "out/reports/hisat2_align_report.csv"
+	report_input["tpm"] = "out/quantification/samples_merged_tpm.csv"
+	if config["newGene"]["activate"]:
+		report_input["newgene"] = "out/newGene/merged_assembly.gtf"
+	if config["PCA"]["activate"]:
+		report_input["pca_plot"] = "out/downstream/pca_plot.pdf"
+		report_input["pca_eig"] = "out/downstream/pca_eigenvalues.csv"
+		report_input["pca_meta"] = "out/downstream/pca_metadata.csv"
+	if config["edgeR"]["activate"]:
+		report_input["deg_table"] = "out/downstream/deg_table.csv"
+
+	return report_input

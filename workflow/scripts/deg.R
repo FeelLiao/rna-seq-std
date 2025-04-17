@@ -4,18 +4,18 @@ library(edgeR)
 count_matrix <-snakemake@input[[1]]
 deg_table <- snakemake@output[["deg_table"]]
 normalize_method <- snakemake@params[["normalization"]]
-fdr_threshold <- snakemake@params[["fdr"]]
+fdr_threshold <- snakemake@params[["fdr_threshold"]]
 log_threshold <- snakemake@params[["log2fc_threshold"]]
-contrast_type <- snakemake@params[["contrast"]]
+# contrast_type <- snakemake@params[["contrast"]]
 
 count <- read_csv(count_matrix)
 
 # sample group
 samples_p <- colnames(count)[-1]
-condition_p <- factor(str_split(
+condition_p <- str_split(
   string = samples_p,
   pattern = "-", simplify = TRUE
-)[, 1])
+)[, 1]
 group_p <- tibble(samples_p, condition_p)
 
 # 位置效应 Position 差异基因分析
@@ -36,11 +36,9 @@ colnames(design_p) <- levels(factor(condition_p))
 p_deg_disp <- estimateDisp(p_expr_deg_norm, design = design_p, robust = TRUE)
 p_deg_fit <- glmQLFit(p_deg_disp, design_p)
 
-
+contra <- combn(unique(condition_p),2,FUN = function(x) paste(x, collapse = "-"))
 contrt_p <- makeContrasts(
-  contrasts = c(
-    contrast_type
-  ),
+  contrasts = contra,
   levels = colnames(design_p)
 )
 p_deg_lrt <- glmQLFTest(p_deg_fit, contrast = contrt_p)

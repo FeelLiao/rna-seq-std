@@ -18,19 +18,13 @@ rule post_process:
 
 rule reports:
 	input:
-		trim="out/reports/trim_report.csv",
-		align="out/reports/hisat2_align_report.csv",
-		tpm="out/quantification/samples_merged_tpm.csv",
-		newgene="out/newGene/gffcompare.annotated.gtf",
-		pca_plot="out/downstream/pca_plot.pdf",
-		pca_eig="out/downstream/pca_eigenvalues.csv",
-		pca_meta="out/downstream/pca_metadata.csv",
+		**get_report_input(),
 	output:
 		"out/reports/report.html",
 	params:
 		newGene = config["newGene"]["activate"],
 		pca = config["PCA"]["activate"],
-		# deg = config["edgeR"]["activate"],
+		deg = config["edgeR"]["activate"],
 		# wgcna = config["WGCNA"]["activate"],
 	log:
 		"out/logs/report.log",

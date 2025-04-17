@@ -64,6 +64,23 @@ properties:
     - activate
     - ncp
 
+  edgeR:
+    type: object
+    properties:
+      activate:
+      type: boolean
+      normalization:
+      type: string
+      fdr_threshold:
+      type: number
+      logFC_threshold:
+      type: number
+    required:
+      - activate
+      - normalization
+      - fdr_threshold
+      - logFC_threshold
+
 
 required:
  - samples
@@ -72,3 +89,4 @@ required:
  - featureCounts
  - newGene
  - PCA
+ - edgeR

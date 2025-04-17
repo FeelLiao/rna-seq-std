@@ -163,7 +163,7 @@ which collectively describe the key features of the original data matrix. **PC1*
 **PC2** captures the most significant feature orthogonal to PC1, and so on, 
 with **PC3** to **PCn** following in descending order of explained variance.
 
-**PCA plot:**
+### PCA plot
 
 ```{r,label="pca_plot", echo=FALSE, warning=FALSE, message=FALSE,fig.align='center', fig.caption='PCA plot of RNA-Seq samples'}
 if (snakemake@params[["pca"]]) {
@@ -191,7 +191,7 @@ if (snakemake@params[["pca"]]) {
 }
 ```
 
-**PCA eigenvalues:**
+### PCA eigenvalues
 
 Eigenvectors are the vectors indicating the direction of the axes along which the data varies the most. 
 Each eigenvector has a corresponding eigenvalue, quantifying the amount of variance captured along its direction.
@@ -209,7 +209,7 @@ if (snakemake@params[["pca"]]) {
 }
 ```
 
-**PCA meta**
+### PCA meta table
 
 The PCA meta table provides raw information about the PCA plot. 
 You can use this table to generate PCA plots with different parameters.
@@ -220,6 +220,27 @@ if (snakemake@params[["pca"]]) {
   kable(pca_meta, align = "l")
 } else {
   cat("Warning: PCA is not activated!")
+}
+```
+
+## 7.Differential expression analysis
+
+Differential Gene Expression Analysis is a biological research methodology that identifies genes with statistically significant differences in 
+expression levels by comparing biological samples under distinct conditions (e.g., disease vs. control groups, cells or tissues subjected to different treatments). 
+Its primary goal is to screen key genes associated with specific phenotypes, diseases, or environmental responses from vast genomic datasets, 
+thereby providing critical insights for subsequent functional studies and clinical applications.
+
+The analysis of differential gene expression is a crucial step in RNA-Seq data analysis. Here we used `edgeR` to perform differential expression analysis.
+The contrasts were defined as comparison each two pairs.
+
+The final results of differential expression analysis are as follows:
+
+```{r,label="diff_exp_table", echo=FALSE, warning=FALSE, message=FALSE}
+if (snakemake@params[["deg"]]) {
+  diff_exp_table <- read_csv(snakemake@input[["deg_table"]])
+  kable(head(diff_exp_table, n = 10), align = "l")
+} else {
+  cat("Warning: Differential expression analysis is not activated!")
 }
 ```
 

@@ -28,7 +28,6 @@ include: "rules/downstream.smk"
 rule upstream:
 	input:
 		get_upstream_output(),
-	default_target: True
 
 rule sra:
 	input:
@@ -37,5 +36,10 @@ rule sra:
 rule downstream:
 	input:
 		get_downstream_input(),
+
+rule all:
+	input:
+		get_final_input(),
+	default_target: True
 
 
