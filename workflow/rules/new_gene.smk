@@ -14,10 +14,10 @@ rule stringtie_initial:
 		"../envs/stringtie.yaml"
 	shell: 
 		"stringtie -v -p {threads} \
-    {params.param} \
-    -G {input.anno} \
-    -o {output} \
-    {input.sbam} > {log} 2>&1"
+		{params.param} \
+		-G {input.anno} \
+		-o {output} \
+		{input.sbam} > {log} 2>&1"
 
 
 # Merge assembled transcripts from all samples. 

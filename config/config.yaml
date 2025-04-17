@@ -34,9 +34,41 @@ featureCounts:
 # Define the newGene parameters
 newGene:
   # If you want to activate newGene, set it to True
-  activate: False
+  activate: True
   # Define the stringtie parameters
   stringtie_params: "-j 1 -c 1 -f 0.01"
 
 
 # RNA-seq downstream config
+
+PCA:
+  activate: True
+  # number of dimensions kept in the results (by default 5)
+  ncp: 5
+  
+# edgeR:
+#   activate: True
+#   # Define the edgeR parameters
+#   # The default is set to "TMM" for normalization, but you can change it to "RLE" or "none"
+#   normalization: TMM
+#   fdr_threshold: 0.05
+#   # The default is set to "1" for logFC threshold, but you can change it to any value
+#   logFC_threshold: 1
+#   contrast: "group-A","group-B"
+
+
+# WGCNA:
+#   activate: True
+#   # Define the WGCNA parameters
+#   # The default is set to "power = 6, type = "unsigned"" for network construction, but you can change it to any value
+#   network_construction: power = 6, type = "unsigned"
+#   # The default is set to "minModuleSize = 30" for module detection, but you can change it to any value
+#   module_detection: minModuleSize = 30
+#   # The default is set to "cutHeight = 0.25" for module merging, but you can change it to any value
+#   module_merging: cutHeight = 0.25
+#   # The default is set to "0.05" for p-value threshold, but you can change it to any value
+#   p_value: 0.05
+
+# lncRNA:
+#   activate: True
+

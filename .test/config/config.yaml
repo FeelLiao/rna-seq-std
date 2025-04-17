@@ -38,3 +38,8 @@ newGene:
 
 
 # RNA-seq downstream config
+
+PCA:
+  activate: True
+  # number of dimensions kept in the results (by default 5)
+  ncp: 5

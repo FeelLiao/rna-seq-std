@@ -1,3 +1,7 @@
 out/
 .snakemake/
 inner/
+data/
+ref/
+rawdata/
+test_local/

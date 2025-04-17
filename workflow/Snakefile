@@ -19,17 +19,23 @@ include: "rules/counts.smk"
 include: "rules/align.smk"
 include: "rules/new_gene.smk"
 include: "rules/post.smk"
+include: "rules/downstream.smk"
 
 
 ##### target rules #####
 
 
 rule upstream:
-    input:
-        get_upstream_output(),
-    default_target: True
+	input:
+		get_upstream_output(),
+	default_target: True
 
 rule sra:
-    input:
-        directory(config["SRA"]["output_dir"])
+	input:
+		directory(config["SRA"]["output_dir"])
+
+rule downstream:
+	input:
+		get_downstream_input(),
+
 

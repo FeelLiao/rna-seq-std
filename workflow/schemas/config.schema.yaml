@@ -5,46 +5,70 @@ description: snakemake configuration file
 type: object
 
 properties:
-  samples:
+ samples:
+  type: string
+
+ ref:
+  type: object
+  properties:
+   genome:
     type: string
+   annotation:
+    type: string
+  required:
+   - genome
+   - annotation
 
-  ref:
-    type: object
-    properties:
-      genome:
-        type: string
-      annotation:
-        type: string
-    required:
-      - genome
-      - annotation
+ SRA:
+  type: object
+  properties:
+   acc_list:
+    type: string
+   output_dir:
+    type: string
+   activate:
+    type: boolean
+  required:
+   - activate
 
-  SRA:
-    type: object
-    properties:
-      acc_list:
-        type: string
-      output_dir:
-        type: string
-      activate:
-        type: boolean
-    required:
-      - activate
+ featureCounts:
+  type: object
+  properties:
+   attribute_type:
+    type: string
+   feature_type:
+    type: string
+  required:
+   - attribute_type
+   - feature_type
+  
+  newGene:
+   type: object
+   properties:
+    activate:
+     type: boolean
+    stringtie_params:
+     type: string
+   required:
+    - activate
+    - stringtie_params
 
-  featureCounts:
-    type: object
-    properties:
-      attribute_type:
-        type: string
-      feature_type:
-        type: string
-    required:
-      - attribute_type
-      - feature_type
+  PCA:
+   type: object
+   properties:
+    activate:
+     type: boolean
+    ncp:
+     type: integer
+   required:
+    - activate
+    - ncp
 
 
 required:
-  - samples
-  - ref
-  - SRA
-  - featureCounts
+ - samples
+ - ref
+ - SRA
+ - featureCounts
+ - newGene
+ - PCA
