@@ -49,7 +49,7 @@
 - [x] RMarkdown报告生成  
  
 规划功能  
-- [ ] edgeR差异基因分析 
+- [x] edgeR差异基因分析 
 - [ ] WGCNA共表达网络分析  
 - [ ] lncRNA鉴定流程
  

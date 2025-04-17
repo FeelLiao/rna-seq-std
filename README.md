@@ -50,7 +50,7 @@ Implemented Features
 - [x] RMarkdown report generation  
  
 Upcoming Features  
-- [ ] edgeR differential expression module  
+- [x] edgeR differential expression module  
 - [ ] WGCNA co-expression network analysis  
 - [ ] LncRNA classification pipeline 
 
