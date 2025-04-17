@@ -17,7 +17,7 @@ jobs:
       with:
         directory: .test
         snakefile: workflow/Snakefile
-        args: "--configfile .test/config/config.yaml --lint"
+        args: "--configfile .test/config/config_all.yaml --lint"
 
   run-workflow-sra:
     runs-on: ubuntu-latest
