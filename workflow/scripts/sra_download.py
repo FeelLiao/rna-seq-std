@@ -6,6 +6,9 @@ __license__ = "MIT"
 from pathlib import Path
 import pandas as pd
 import tempfile
+import os
+import threading
+import queue
 from snakemake.shell import shell
 
 
@@ -15,8 +18,11 @@ acc_list_file = snakemake.input[0]
 fastq_path = snakemake.output[0]
 acc_list_file = Path(acc_list_file)
 fastq_path = Path(fastq_path)
+threads = snakemake.threads
 
 assert acc_list_file.exists(), f"File not found: {acc_list_file}"
+
+fastq_path.mkdir(parents=True, exist_ok=True)
 
 # Download SRA data from ncbi
 # TODO: Add parallel download option: When one SRA file is downloaded,
@@ -24,24 +30,67 @@ assert acc_list_file.exists(), f"File not found: {acc_list_file}"
 with tempfile.TemporaryDirectory(prefix="sra_download_") as tmpdir:
     tmp_path = Path(tmpdir)
 
+    with open(acc_list_file, 'r') as f:
+        accessions = [line.strip() for line in f if line.strip()]
+
+    dump_threads = max(threads, os.cpu_count()//4)
+    consumers = max(1, dump_threads // 2)
+
+    q = queue.Queue(maxsize=consumers * 2)
+    errors = []
+
+    def find_sra(acc: str) -> Path | None:
+        matchs = list(tmp_path.rglob(f"{acc}*.sra"))
+        return matchs[0] if matchs else None
+
+    def download_sra():
+        for acc in accessions:
+            try:
+                shell("prefetch -O {tmp_path} "
+                      "{acc} "
+                      "{log} ")
+                sra = find_sra(acc)
+                if not sra or not sra.exists():
+                    msg = f"Failed to download SRA file for accession: {acc}"
+                    errors.append(msg)
+                    continue
+                q.put(sra)
+            except Exception as e:
+                errors.append(
+                    f"Error downloading SRA file for accession {acc}: {str(e)}")
+
+        for _ in range(consumers):
+            q.put(None)
+
+    def convert_sra_to_fastq(worker_id: int):
+        while True:
+            sra = q.get()
+            if sra is None:
+                break
+            try:
+                shell("parallel-fastq-dump -O {fastq_path} "
+                      "-t {dump_threads} "
+                      "--split-files -s {sra} "
+                      "{log}")
+                os.remove(sra)
+            except Exception as e:
+                errors.append(f"Error fastq-dump failed for {sra}: {e}")
+
     try:
-        shell("prefetch -O {tmp_path} "
-              "--option-file {acc_list_file} "
-              "{log} ")
-
-        if not fastq_path.exists():
-            fastq_path.mkdir(parents=True)
-
-        downloaded_sras = tmp_path.rglob('*.sra')
-        for sra in downloaded_sras:
-            shell("parallel-fastq-dump -O {fastq_path} "
-                  "-t {snakemake.threads} "
-                  "--split-files -s {sra} "
-                  "{log}")
+        prod_t = threading.Thread(target=download_sra,name="Producer",daemon=True)
+        cons_ts = [
+            threading.Thread(target=convert_sra_to_fastq, args=(i,), name=f"Consumer-{i}", daemon=True)
+            for i in range(consumers)
+        ]
+        prod_t.start()
+        for t in cons_ts:
+            t.start()
+        prod_t.join()
+        for t in cons_ts:
+            t.join()
 
     except Exception as e:
-        print(f"Error processing SRR files : {str(e)}")
-        raise
+        errors.append(f"Error occurred in processing the sra: {e}")
 
 
 # generate sample sheet
