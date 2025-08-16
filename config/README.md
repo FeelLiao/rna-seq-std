@@ -53,7 +53,7 @@ You could download this via NCBI or EMBL database.
 
 Which genome annotation to use. Usually, the more precise the annotation is, the more persuasive quantification results is. 
 
-Both gff and gtf format are acceptable.
+Only gtf format is acceptable.
 
 # Clean
 
